@@ -32,9 +32,14 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CONFIG := twrp_defconfig
-TARGET_KERNEL_DEVICE_DEFCONFIG := device_xiaomi_lithium
 
+ifneq ($(LITHIUM_EU),)
+TARGET_KERNEL_DEVICE_DEFCONFIG := device_xiaomi_lithium-eu
+TARGET_PREBUILT_KERNEL := $(DEVICE_TREE)/Image.gz-dtb-eu
+else
+TARGET_KERNEL_DEVICE_DEFCONFIG := device_xiaomi_lithium
 TARGET_PREBUILT_KERNEL := $(DEVICE_TREE)/Image.gz-dtb
+endif
 
 # Boot image
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom androidboot.bootdevice=624000.ufshc androidboot.selinux=permissive user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff enforcing=0
